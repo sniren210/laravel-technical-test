@@ -8,6 +8,12 @@ use App\Http\Requests\UpdateBarangRequest;
 
 class BarangController extends Controller
 {
+    protected $validasi = [
+        'name' => ['required', 'string', 'max:255'],
+        'desc' => ['required', 'string', 'max:255'],
+        'jumlah' => ['required', 'string', 'max:255'],
+        // 'img' => 'file|image|mimes:jpeg,png,jpg',
+    ];
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +21,11 @@ class BarangController extends Controller
      */
     public function index()
     {
-        //
+        $data = [
+            'barang' => Barang::all(),
+        ];
+
+        return view('barang.table', $data);
     }
 
     /**
@@ -25,7 +35,7 @@ class BarangController extends Controller
      */
     public function create()
     {
-        //
+        return view('barang.tambah');
     }
 
     /**
@@ -36,7 +46,12 @@ class BarangController extends Controller
      */
     public function store(StoreBarangRequest $request)
     {
-        //
+        $barang = new Barang($request->all());
+
+        $request->validate($this->validasi, $this->messages);
+
+        $barang->save();
+        return redirect('barang$barang')->with('status', 'barang berhasil ditambahkan.');
     }
 
     /**
@@ -47,7 +62,11 @@ class BarangController extends Controller
      */
     public function show(Barang $barang)
     {
-        //
+        $data = [
+            'barang' => $barang,
+        ];
+
+        return view('barang.detail', $data);
     }
 
     /**
@@ -58,7 +77,11 @@ class BarangController extends Controller
      */
     public function edit(Barang $barang)
     {
-        //
+        $data = [
+            'barang' => $barang,
+        ];
+
+        return view('barang.edit', $data);
     }
 
     /**
@@ -70,7 +93,15 @@ class BarangController extends Controller
      */
     public function update(UpdateBarangRequest $request, Barang $barang)
     {
-        //
+        $request->validate($this->validasi, $this->messages);
+
+        Barang::where('id', $barang->id)->update([
+            'name' => $request->name,
+            'desc' => $request->desc,
+            'jumlah' => $request->jumlah,
+        ]);
+
+        return redirect('/barang')->with('status', 'barang berhasil diubah.');
     }
 
     /**
@@ -81,6 +112,7 @@ class BarangController extends Controller
      */
     public function destroy(Barang $barang)
     {
-        //
+        Barang::destroy($barang->id);
+        return redirect('barang')->with('status', 'barang berhasil dihapus.');
     }
 }

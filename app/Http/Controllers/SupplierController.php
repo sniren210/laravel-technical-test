@@ -8,6 +8,17 @@ use App\Http\Requests\UpdateSupplierRequest;
 
 class SupplierController extends Controller
 {
+    protected $validasi = [
+        'name' => ['required', 'string', 'max:255'],
+        'desc' => ['required', 'string', 'max:255'],
+        // 'img' => 'file|image|mimes:jpeg,png,jpg',
+    ];
+
+    protected $validasiEdit = [
+        'name' => ['required', 'string', 'max:255'],
+        'desc' => ['required', 'string', 'max:255'],
+        'img' => 'file|image|mimes:jpeg,png,jpg',
+    ];
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +26,11 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        //
+        $data = [
+            'supplier' => Supplier::all(),
+        ];
+
+        return view('supplier.table', $data);
     }
 
     /**
@@ -25,7 +40,7 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        //
+        return view('supplier.tambah');
     }
 
     /**
@@ -36,7 +51,12 @@ class SupplierController extends Controller
      */
     public function store(StoreSupplierRequest $request)
     {
-        //
+        $supplier = new Supplier($request->all());
+
+        $request->validate($this->validasi, $this->messages);
+
+        $supplier->save();
+        return redirect('supplier')->with('status', 'supplier berhasil ditambahkan.');
     }
 
     /**
@@ -47,7 +67,11 @@ class SupplierController extends Controller
      */
     public function show(Supplier $supplier)
     {
-        //
+        $data = [
+            'supplier' => $supplier,
+        ];
+
+        return view('supplier.detail', $data);
     }
 
     /**
@@ -58,7 +82,11 @@ class SupplierController extends Controller
      */
     public function edit(Supplier $supplier)
     {
-        //
+        $data = [
+            'supplier' => $supplier,
+        ];
+
+        return view('supplier.edit', $data);
     }
 
     /**
@@ -70,7 +98,14 @@ class SupplierController extends Controller
      */
     public function update(UpdateSupplierRequest $request, Supplier $supplier)
     {
-        //
+        $request->validate($this->validasiEdit, $this->messages);
+
+        Supplier::where('id', $supplier->id)->update([
+            'name' => $request->name,
+            'desc' => $request->desc,
+        ]);
+
+        return redirect('/supplier')->with('status', 'supplier berhasil diubah.');
     }
 
     /**
@@ -81,6 +116,7 @@ class SupplierController extends Controller
      */
     public function destroy(Supplier $supplier)
     {
-        //
+        Supplier::destroy($supplier->id);
+        return redirect('supplier')->with('status', 'supplier berhasil dihapus.');
     }
 }
