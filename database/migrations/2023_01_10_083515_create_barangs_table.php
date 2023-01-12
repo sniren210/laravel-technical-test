@@ -17,6 +17,7 @@ class CreateBarangsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('desc')->nullable();
+            $table->integer('harga');
             $table->integer('jumlah');
             $table->integer('user_id');
             $table->integer('supplier_id');

@@ -18,6 +18,7 @@ class BarangFactory extends Factory
             'desc' => $this->faker->paragraph($nbSentences = 2, $variableNbSentences = true),
             'jumlah' => $this->faker->randomNumber(1),
             'user_id' => 1,
+            'harga' => 100000,
             'supplier_id' => $this->faker->numberBetween(1, 3),
 
         ];

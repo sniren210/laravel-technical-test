@@ -12,13 +12,13 @@ class HomeController extends Controller
 
     public function index()
     {
-        $barang = Barang::all();
-        $supplier = Supplier::all();
-        $transaction = Transaction::all();
-        $user = User::all();
+        $data = [
+            "user" => User::count(),
+            "barang" => Barang::count(),
+            "supplier" => Supplier::count(),
+            "transaction" => Transaction::count(),
+        ];
 
-        dd($user[0]->barang);
-
-        return view('welcome');
+        return view('dashboard.home', $data);
     }
 }

@@ -17,6 +17,7 @@ class CreateTransactionsTable extends Migration
             $table->id();
             $table->dateTime('desc')->nullable();
             $table->boolean('is_out');
+            $table->integer('jumlah');
             $table->integer('user_id');
             $table->integer('barang_id');
             $table->integer('supplier_id');
