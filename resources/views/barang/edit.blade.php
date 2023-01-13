@@ -122,7 +122,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <img class="img-fluid pad" id="img"
-                                                src="{{ asset('img/profile') }}/{{ $barang->img }} " alt="Photo">
+                                                src="{{ asset('img/product') }}/{{ $barang->img }} " alt="Photo">
                                         </div>
                                     </div>
                                 </div>

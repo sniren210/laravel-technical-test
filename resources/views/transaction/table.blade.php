@@ -147,6 +147,8 @@
                     }
                 }, {
                     extend: 'pdf',
+                    title: 'Laporan transaksi',
+                    messageTop: 'Laporan transaksi barang keluar dan masuk',
                     exportOptions: {
                         columns: [0, 1, 2, 3, 5, 6, 7]
                     }
