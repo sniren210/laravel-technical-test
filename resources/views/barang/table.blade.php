@@ -57,7 +57,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Name</th>
-                                        <th>Email</th>
+                                        <th>Jumlah Barang</th>
                                         @if (Auth::guard('web')->check())
                                             <th>Aksi</th>
                                         @endif
@@ -68,7 +68,7 @@
                                         <tr>
                                             <td>{{ $loop->iteration }} </td>
                                             <td>{{ $data->name }} </td>
-                                            <td>{{ $data->email }} </td>
+                                            <td>{{ $data->jumlah }} </td>
                                             @if (Auth::guard('web')->check())
                                                 <td>
                                                     <a href="{{ url('/barang/' . $data->id) }}"
@@ -87,7 +87,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Name</th>
-                                        <th>Email</th>
+                                        <th>Jumlah Barang</th>
                                         @if (Auth::guard('web')->check())
                                             <th>Aksi</th>
                                         @endif

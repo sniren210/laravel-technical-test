@@ -11,7 +11,6 @@
             display: flex;
             justify-content: flex-end;
         }
-
     </style>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -20,11 +19,11 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>User Tabel</h1>
+                        <h1>Supplier Tabel</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">User</a></li>
+                            <li class="breadcrumb-item"><a href="#">Supplier</a></li>
                             <li class="breadcrumb-item active">tabel</li>
                         </ol>
                     </div>
@@ -48,8 +47,7 @@
                     <div class="card">
                         <div class="card-header">
                             @if (Auth::guard('web')->check())
-
-                                <a href="{{ url('/user/create') }}" class="btn btn-primary">Tambah</a>
+                                <a href="{{ url('/supplier/create') }}" class="btn btn-primary">Tambah</a>
                             @endif
                         </div>
                         <!-- /.card-header -->
@@ -59,25 +57,26 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Name</th>
-                                        <th>Email</th>
+                                        <th>deksripsi</th>
                                         @if (Auth::guard('web')->check())
                                             <th>Aksi</th>
                                         @endif
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($user as $data)
+                                    @foreach ($supplier as $data)
                                         <tr>
                                             <td>{{ $loop->iteration }} </td>
                                             <td>{{ $data->name }} </td>
-                                            <td>{{ $data->email }} </td>
+                                            <td>{{ $data->desc }} </td>
                                             @if (Auth::guard('web')->check())
                                                 <td>
-                                                    <a href="{{ url('/user/' . $data->id) }}"
+                                                    <a href="{{ url('/supplier/' . $data->id) }}"
                                                         class="badge badge-info">Show</a>
-                                                    <a href="{{ url('/user/' . $data->id . '/edit') }}"
+                                                    <a href="{{ url('/supplier/' . $data->id . '/edit') }}"
                                                         class="badge badge-success">Edit</a>
-                                                    <button type="button" class="btn badge badge-danger" data-toggle="modal"
+                                                    <button type="button" class="btn badge badge-danger"
+                                                        data-toggle="modal"
                                                         data-target="#delete{{ $data->id }}">Hapus</button>
                                                 </td>
                                             @endif
@@ -88,7 +87,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Name</th>
-                                        <th>Email</th>
+                                        <th>deksripsi</th>
                                         @if (Auth::guard('web')->check())
                                             <th>Aksi</th>
                                         @endif
@@ -109,23 +108,23 @@
     <!-- /.content-wrapper -->
 
     <!-- Modal -->
-    @foreach ($user as $data)
+    @foreach ($supplier as $data)
         <div class="modal fade" id="delete{{ $data->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Hapus User</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Hapus Supplier</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        yakin ingin menghapus user ini ?
+                        yakin ingin menghapus supplier ini ?
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <form action="/user/{{ $data->id }}" method="POST">
+                        <form action="/supplier/{{ $data->id }}" method="POST">
                             @csrf
                             @method('delete')
                             <button type="submit" class="btn btn-danger">Hapus Data</button>

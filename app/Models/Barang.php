@@ -15,7 +15,9 @@ class Barang extends Model
         'name',
         'desc',
         'jumlah',
+        'harga',
         'user_id',
+        'supplier_id',
     ];
 
     /**
@@ -26,6 +28,16 @@ class Barang extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    /**
+     * Get the user that owns the Barang
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function supplier(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'supplier_id');
     }
 
     /**

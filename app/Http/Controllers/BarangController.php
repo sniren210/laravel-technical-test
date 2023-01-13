@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Barang;
 use App\Http\Requests\StoreBarangRequest;
 use App\Http\Requests\UpdateBarangRequest;
+use App\Models\Supplier;
+use Illuminate\Support\Facades\File;
 
 class BarangController extends Controller
 {
@@ -12,7 +14,8 @@ class BarangController extends Controller
         'name' => ['required', 'string', 'max:255'],
         'desc' => ['required', 'string', 'max:255'],
         'jumlah' => ['required', 'string', 'max:255'],
-        // 'img' => 'file|image|mimes:jpeg,png,jpg',
+        'harga' => ['required', 'string', 'max:255'],
+        'img' => 'file|image|mimes:jpeg,png,jpg',
     ];
     /**
      * Display a listing of the resource.
@@ -35,7 +38,11 @@ class BarangController extends Controller
      */
     public function create()
     {
-        return view('barang.tambah');
+        $data = [
+            'supplier' => Supplier::all(),
+        ];
+
+        return view('barang.tambah', $data);
     }
 
     /**
@@ -46,12 +53,32 @@ class BarangController extends Controller
      */
     public function store(StoreBarangRequest $request)
     {
-        $barang = new Barang($request->all());
+        $req = $request->all();
+
+        $req['user_id'] = strval(app('auth')->user()->id);
+
+        $barang = new Barang($req);
+
+        $barang->img = 'default.png';
+
 
         $request->validate($this->validasi, $this->messages);
 
+        if ($request->img) {
+            $request->img->originalName =
+                time() . '_' . $request->img->getClientOriginalName();
+
+            $request->img->move(
+                'img/profile',
+                $request->img->originalName
+            );
+
+            $barang->img =
+                $request->img->originalName;
+        }
+
         $barang->save();
-        return redirect('barang$barang')->with('status', 'barang berhasil ditambahkan.');
+        return redirect('barang')->with('status', 'barang berhasil ditambahkan.');
     }
 
     /**
@@ -95,10 +122,25 @@ class BarangController extends Controller
     {
         $request->validate($this->validasi, $this->messages);
 
+
+        if ($request->img) {
+
+            if ($request->img->originalName = 'default.png') {
+                $request->img->originalName =
+                    time() . '_' . $request->img->getClientOriginalName();
+            } else {
+                $request->img->originalName =
+                    time() . '_' . $request->img->getClientOriginalName();
+                File::delete('img/profile/' . $barang->img);
+            }
+        }
+
         Barang::where('id', $barang->id)->update([
             'name' => $request->name,
             'desc' => $request->desc,
             'jumlah' => $request->jumlah,
+            'img' => $request->img->originalName ?? $barang->img,
+
         ]);
 
         return redirect('/barang')->with('status', 'barang berhasil diubah.');
@@ -112,6 +154,10 @@ class BarangController extends Controller
      */
     public function destroy(Barang $barang)
     {
+        if (!($barang->foto = 'default.png')) {
+            File::delete('img/profile/' . $barang->foto);
+        }
+
         Barang::destroy($barang->id);
         return redirect('barang')->with('status', 'barang berhasil dihapus.');
     }

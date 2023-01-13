@@ -20,8 +20,18 @@ class Supplier extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function supplier(): HasMany
+    public function transaction(): HasMany
     {
         return $this->hasMany(Transaction::class, 'supplier_id');
+    }
+
+    /**
+     * Get all of the supplier for the Supplier
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function barang(): HasMany
+    {
+        return $this->hasMany(Barang::class, 'supplier_id');
     }
 }

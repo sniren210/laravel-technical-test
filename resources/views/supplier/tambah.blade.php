@@ -8,11 +8,11 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>User</h1>
+                        <h1>Supplier</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">User</a></li>
+                            <li class="breadcrumb-item"><a href="#">Supplier</a></li>
                             <li class="breadcrumb-item active">Tambah</li>
                         </ol>
                     </div>
@@ -29,11 +29,11 @@
                         <!-- general form elements -->
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h3 class="card-title">User Create</h3>
+                                <h3 class="card-title">Supplier Create</h3>
                             </div>
                             <!-- /.card-header -->
                             <!-- form start -->
-                            <form method="POST" action="/user" enctype="multipart/form-data">
+                            <form method="POST" action="/supplier" enctype="multipart/form-data">
                                 @csrf
                                 @method('post')
                                 <div class="card-body">
@@ -48,33 +48,17 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">Email</label>
-                                        <input type="text" class="form-control @error('email') is-invalid @enderror"
-                                            id="exampleInputEmail1" name="email" value="{{ old('email') }}">
-                                        @error('email')
+                                        <label for="exampleInputEmail1">Deskripsi</label>
+                                        <input type="text" class="form-control @error('desc') is-invalid @enderror"
+                                            id="exampleInputEmail1" name="desc" value="{{ old('desc') }}">
+                                        @error('desc')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     </div>
 
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">Password</label>
-                                        <input type="password" class="form-control @error('password') is-invalid @enderror"
-                                            id="exampleInputEmail1" name="password">
-                                        @error('password')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">Confirm Password</label>
-                                        <input type="password" class="form-control " id="exampleInputEmail1"
-                                            name="password_confirmation">
-                                    </div>
-
-                                    <div class="row">
+                                    {{-- <div class="row">
                                         <div class="col-md-6">
 
                                             <div class="form-group">
@@ -103,13 +87,13 @@
                                             <img class="img-fluid pad" id="img" src="/img/default-150x150.png"
                                                 alt="Photo">
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <!-- /.card-body -->
 
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-primary">Submit</button>
-                                    <a href="{{ url('/user') }}" class="btn btn-link">Kembali</a>
+                                    <a href="{{ url('/supplier') }}" class="btn btn-link">Kembali</a>
                                 </div>
                             </form>
                         </div>
