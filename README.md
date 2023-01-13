@@ -1,8 +1,6 @@
 # Laravel Transaction Website
 Transaction Website use 
-- Laravel 8![Capture9](https://user-images.githubusercontent.com/53244523/212276493-9b3aa7be-6150-47ab-8ec9-5b58dba334e2.PNG)![Capture](https://user-images.githubusercontent.com/53244523/212276499-f2c41cc6-a717-4455-9c8e-1318c0e64a85.PNG)
-![Capture1](https://user-images.githubusercontent.com/53244523/212276502-655f2c80-8d7a-42b9-93e6-16f8ed6d459d.PNG)
-
+- Laravel 8
 - Mysql
 - Bootstrap
 
