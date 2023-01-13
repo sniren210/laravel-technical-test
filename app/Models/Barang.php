@@ -18,6 +18,7 @@ class Barang extends Model
         'harga',
         'user_id',
         'supplier_id',
+        'img',
     ];
 
     /**

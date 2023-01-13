@@ -6,6 +6,8 @@ use App\Models\Barang;
 use App\Http\Requests\StoreBarangRequest;
 use App\Http\Requests\UpdateBarangRequest;
 use App\Models\Supplier;
+use App\Models\Transaction;
+use App\TransactionService;
 use Illuminate\Support\Facades\File;
 
 class BarangController extends Controller
@@ -77,7 +79,31 @@ class BarangController extends Controller
                 $request->img->originalName;
         }
 
-        $barang->save();
+
+
+        $res = Barang::create([
+            'name' => $barang->name,
+            'desc' => $barang->desc,
+            'jumlah' => $barang->jumlah,
+            'harga' => $barang->harga,
+            'supplier_id' => $barang->supplier_id,
+            'user_id' => $barang->user_id,
+            'img' =>  $barang->img,
+        ]);
+
+        if (!empty($res)) {
+            $transaction = new TransactionService();
+
+            $transaction->store([
+                'desc' => 'Membuat barang ' . $barang->name,
+                'is_out' => false,
+                'user_id' => strval(app('auth')->user()->id),
+                'barang_id' => $res->id,
+                'supplier_id' =>  $barang->supplier_id,
+            ]);
+        }
+
+
         return redirect('barang')->with('status', 'barang berhasil ditambahkan.');
     }
 
@@ -106,6 +132,7 @@ class BarangController extends Controller
     {
         $data = [
             'barang' => $barang,
+            'supplier' => Supplier::all()
         ];
 
         return view('barang.edit', $data);
@@ -135,13 +162,41 @@ class BarangController extends Controller
             }
         }
 
-        Barang::where('id', $barang->id)->update([
+        $res = Barang::where('id', $barang->id)->update([
             'name' => $request->name,
             'desc' => $request->desc,
             'jumlah' => $request->jumlah,
+            'harga' => $request->harga,
+            'supplier_id' => $request->supplier_id,
             'img' => $request->img->originalName ?? $barang->img,
-
         ]);
+
+        if (!empty($res)) {
+            $transaction = new TransactionService();
+
+            if ($request->jumlah != $barang->jumlah) {
+
+                $transaction->store(
+                    [
+                        'desc' => 'Mengedit barang ' . $barang->name,
+                        'is_out' => $request->jumlah < $barang->jumlah,
+                        'user_id' => strval(app('auth')->user()->id),
+                        'barang_id' => $barang->id,
+                        'supplier_id' =>  $barang->supplier_id,
+                    ]
+                );
+            } else {
+                $transaction->store(
+                    [
+                        'desc' => 'Mengedit barang ' . $barang->name,
+                        'is_out' => $request->jumlah < $barang->jumlah,
+                        'user_id' => strval(app('auth')->user()->id),
+                        'barang_id' => $barang->id,
+                        'supplier_id' =>  $barang->supplier_id,
+                    ]
+                );
+            }
+        }
 
         return redirect('/barang')->with('status', 'barang berhasil diubah.');
     }

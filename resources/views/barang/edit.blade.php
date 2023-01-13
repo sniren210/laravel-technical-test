@@ -80,6 +80,23 @@
                                         @enderror
                                     </div>
 
+                                    <div class="form-group">
+                                        <label>Supplier</label>
+                                        <select class="custom-select @error('supplier_id') is-invalid @enderror"
+                                            name="supplier_id">
+                                            <option checked value="">Pilih user supplier</option>
+                                            @foreach ($supplier as $data)
+                                                <option {{ $data->id == $barang->supplier_id ? 'selected' : '' }}
+                                                    value="{{ $data->id }}">{{ $data->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('supplier_id')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
                                     <div class="row">
                                         <div class="col-md-6">
 
