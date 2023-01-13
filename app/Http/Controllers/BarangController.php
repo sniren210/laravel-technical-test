@@ -69,7 +69,7 @@ class BarangController extends Controller
                 time() . '_' . $request->img->getClientOriginalName();
 
             $request->img->move(
-                'img/profile',
+                'img/product',
                 $request->img->originalName
             );
 
@@ -131,7 +131,7 @@ class BarangController extends Controller
             } else {
                 $request->img->originalName =
                     time() . '_' . $request->img->getClientOriginalName();
-                File::delete('img/profile/' . $barang->img);
+                File::delete('img/product/' . $barang->img);
             }
         }
 
@@ -155,7 +155,7 @@ class BarangController extends Controller
     public function destroy(Barang $barang)
     {
         if (!($barang->foto = 'default.png')) {
-            File::delete('img/profile/' . $barang->foto);
+            File::delete('img/product/' . $barang->foto);
         }
 
         Barang::destroy($barang->id);

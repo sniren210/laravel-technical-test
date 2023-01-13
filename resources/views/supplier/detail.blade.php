@@ -8,12 +8,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Profile</h1>
+                        <h1>Profile Supplier</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="{{ url('user') }}">Tabel</a></li>
-                            <li class="breadcrumb-item active">User Profile</li>
+                            <li class="breadcrumb-item"><a href="{{ url('supplier') }}">Tabel</a></li>
+                            <li class="breadcrumb-item active">Supplier Profile</li>
                         </ol>
                     </div>
                 </div>
@@ -30,27 +30,16 @@
                         <div class="card card-primary card-outline">
                             <div class="card-body box-profile">
 
-                                <div class="text-center">
-                                    <img class="profile-user-img img-fluid img-circle"
-                                        src="{{ asset('img/profile') }}/{{ $user->img }}"
-                                        alt="{{ $user->name }} profile picture">
-                                </div>
-
-                                <h3 class="profile-username text-center">{{ $user->name }} </h3>
+                                <h3 class="profile-username text-center">{{ $supplier->name }} </h3>
 
                                 <ul class="list-group list-group-unbordered mb-3">
                                     <li class="list-group-item">
-                                        <b>Email</b> <a class="float-right">{{ $user->email }} </a>
+                                        <b>Deskripsi</b> <a class="float-right">{{ $supplier->desc }} </a>
                                     </li>
-                                    {{-- <li class="list-group-item">
-                                        <b>Password</b> <a class="float-right">{{ $user->password }}</a>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <b>Pin</b> <a class="float-right">{{ $user->pin }}</a>
-                                    </li> --}}
+
                                 </ul>
 
-                                <a href="{{ url('/user/' . $user->id . '/edit') }}"
+                                <a href="{{ url('/supplier/' . $supplier->id . '/edit') }}"
                                     class="btn btn-primary btn-block"><b>Edit</b></a>
                             </div>
                             <!-- /.card-body -->
@@ -76,7 +65,7 @@
                                         <div class="card card-primary">
                                             <!-- /.card-header -->
                                             <div class="card-body">
-                                                @foreach ($user->barang as $item)
+                                                @foreach ($supplier->barang as $item)
                                                     <strong><i class="fas fa-book mr-1"></i>Name Product</strong>
 
                                                     <p class="text-muted">
@@ -95,7 +84,7 @@
 
                                     <div class="tab-pane" id="transaction">
                                         <!-- The timeline -->
-                                        @foreach ($user->transaction as $pay)
+                                        @foreach ($supplier->transaction as $pay)
                                             <div class="timeline timeline-inverse">
                                                 <!-- timeline time label -->
                                                 <div class="time-label">
