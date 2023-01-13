@@ -32,6 +32,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('/supplier', SupplierController::class);
 
     Route::get('/transaction', [TransactionController::class, 'index']);
+
+    Route::get('/transaction/{transaction}', [TransactionController::class, 'show']);
+
+    Route::delete('/transaction/{transaction}', [TransactionController::class, 'destroy']);
 });
 
 require __DIR__ . '/auth.php';

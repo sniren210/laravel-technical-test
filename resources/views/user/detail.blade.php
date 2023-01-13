@@ -110,7 +110,7 @@
 
                                                     <div class="timeline-item">
                                                         <h3 class="timeline-header">
-                                                            <b class="text-primary">Pay</b>
+                                                            <b class="text-primary">Transaksi</b>
                                                             <span>
                                                                 {{ $pay->jumlah }}
                                                             </span>

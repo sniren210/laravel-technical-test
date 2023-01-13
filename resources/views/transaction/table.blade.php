@@ -54,6 +54,7 @@
                                         <th>deskripsi</th>
                                         <th>masuk/keluar</th>
                                         <th>tanggal</th>
+                                        <th>aksi</th>
                                         <th>user</th>
                                         <th>supplier</th>
                                         <th>barang</th>
@@ -66,6 +67,10 @@
                                             <td>{{ $data->desc }} </td>
                                             <td>{{ $data->is_out ? 'keluar' : 'masuk' }} </td>
                                             <td>{{ $data->created_at }} </td>
+                                            <td>
+                                                <a href="{{ url('/transaction/' . $data->id) }}"
+                                                    class="badge badge-info">Show</a>
+                                            </td>
                                             <td>{{ $data->user->name }} </td>
                                             <td>{{ $data->supplier->name }} </td>
                                             <td>{{ $data->supplier->name }} </td>
@@ -78,6 +83,7 @@
                                         <th>deskripsi</th>
                                         <th>masuk/keluar</th>
                                         <th>tanggal</th>
+                                        <th>aksi</th>
                                         <th>user</th>
                                         <th>supplier</th>
                                         <th>barang</th>
@@ -129,15 +135,21 @@
             $("#example1").DataTable({
                 'columnDefs': [{
                     'visible': false,
-                    'targets': [4, 5, 6]
+                    'targets': [5, 6, 7]
                 }],
                 "responsive": true,
                 "lengthChange": false,
                 "autoWidth": false,
                 "buttons": [{
                     extend: 'excel',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 5, 6, 7]
+                    }
                 }, {
                     extend: 'pdf',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 5, 6, 7]
+                    }
                 }, "colvis"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({

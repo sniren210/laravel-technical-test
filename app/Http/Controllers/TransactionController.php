@@ -35,6 +35,13 @@ class TransactionController extends Controller
             'transaction' => $transaction
         ];
 
+
         return view('transaction.detail', $data);
+    }
+
+    public function destroy(Transaction $transaction)
+    {
+        Transaction::destroy($transaction->id);
+        return redirect('transaction')->with('status', 'transaksi berhasil dihapus.');
     }
 }
